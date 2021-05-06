@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Book
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render
 
 # Create your views here.
 
@@ -15,8 +16,23 @@ books_data = [
 # ]
 
 def home(req):
-    data = {'books': 'books_data'}
-    return render(req, 'home.html', data)
+    #data = {'books': 'books_data'}
+    return render(req, 'home.html')
 
-# def show(req, id):
-#     return render(req, )
+def about(req):
+    return render(req, 'about.html')
+
+def show_books(req):
+    books = {'book': Book.objects.all()}
+    return render(req, 'books.html', books)
+
+def show(req, book_id):
+    book = get_object_or_404(Book,pk=book_id)
+    return render(req, 'books.html')
+
+def not_found_404(req, exception):
+    #data = { 'err': exception }
+    return render(request, '400.html')
+
+def server_error_500(req):
+    return render(request, '500.html')

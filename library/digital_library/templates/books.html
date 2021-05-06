@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <h1>Welcome to the book page!</h1>
+    <ul>
+      {% for book in doggos %}
+          <li>
+              <a href="{% url 'digital_library_book_list' book_id=book.id %}">
+                  {{ book.name }}
+              </a>
+          </li>
+      {% endfor %}
+  </ul>
+
+{% endblock content %}
+
