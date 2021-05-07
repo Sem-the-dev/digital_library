@@ -13,9 +13,12 @@
         <a href="{% url 'digital-library-book-list' %}">Books</a>
 
     </div>
-
-
 </nav>
+    {% if messages %}
+        {% for message in messages %}
+            <section id="alert">{{ message }}</section>
+        {% endfor %}
+    {% endif %}
     <main>
         {% block content %}
         {% endblock content %}
