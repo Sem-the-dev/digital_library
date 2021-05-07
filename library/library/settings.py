@@ -127,5 +127,5 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# handler404 = 'digital_library.views.not_found_404'
-# handler500 = 'digital_library.views.server_error_500'
+LOGIN_REDIRECT_URL = 'digital-library-home'
+LOGIN_URL = 'login'

@@ -1,19 +1,8 @@
 from .models import Book
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
-
-# books_data = [
-#     {'id': 1, 'title': 'Harry Potter'},
-#     {'id': 2, 'title': 'The Meaning of Life'}
-# ]
-
-# books_data = [
-#     { 'id': 1, 'title': 'Life, the Universe and Everything', 'author': 'Douglas Adams'},
-#     { 'id': 2, 'title': 'The Meaning of Liff' 'author': 'Douglas Adams'},
-#     { 'id': 3, 'title': 'The No. 1 Ladies\' Detective Agency' 'author': 'Alexander McCall Smith'}
-# ]
 
 def home(req):
     return render(req, 'home.html')
@@ -21,10 +10,11 @@ def home(req):
 def about(req):
     return render(req, 'about.html')
 
+@login_required
 def show_books(req):
     books = {'book': Book.objects.all()}
     return render(req, 'books.html', books)
-
+@login_required
 def show_one(req, id):
     # books = get_object_or_404(Book, pk=id)
     books = Book.objects.get(pk=id)
