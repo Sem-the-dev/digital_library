@@ -2,6 +2,7 @@ from .models import Book
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from .forms import BorrowBookForm, NewBookForm
 
 
 def home(req):
@@ -16,10 +17,22 @@ def show_books(req):
     return render(req, 'books.html', books)
 @login_required
 def show_one(req, id):
-    # books = get_object_or_404(Book, pk=id)
-    books = Book.objects.get(pk=id)
-    # return render(req, 'show.html', books)
-    return HttpResponse(f'<p>Read {books.title}</p>')
+    #book = Book.objects.get(pk=id)
+    book = get_object_or_404(Book, pk=id)
+    if req.method == 'POST':
+        form = BorrowBookForm(req.POST)
+        if form.is_valid():
+            book.owner = req.user
+            book.save()
+            return redirect("digital-library-book", id = id)
+    else:
+        form = BorrowBookForm(initial={'borrower': req.user})
+    data = {
+            "book": book,
+            "form": form
+        }
+    return render(req, 'show.html', data)
+    #return HttpResponse(f'<p>Read {books.title}</p>')
 
 def not_found_404(req, exception):
     #data = { 'err': exception }
