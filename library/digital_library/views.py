@@ -15,6 +15,19 @@ def about(req):
 def show_books(req):
     books = {'book': Book.objects.all()}
     return render(req, 'books.html', books)
+
+@login_required
+def create(req):
+    if req.method == 'POST':
+        book = NewBookForm(req.POST)
+        if book.is_valid():
+            id = book.save().id
+            return redirect("digital-library-book", id=id)
+    else:
+        form = NewBookForm()
+    data = {'form': form}
+    return render(req, 'new.html', data)
+
 @login_required
 def show_one(req, id):
     #book = Book.objects.get(pk=id)
@@ -22,7 +35,7 @@ def show_one(req, id):
     if req.method == 'POST':
         form = BorrowBookForm(req.POST)
         if form.is_valid():
-            book.owner = req.user
+            book.borrower = req.user
             book.save()
             return redirect("digital-library-book", id = id)
     else:
@@ -33,6 +46,8 @@ def show_one(req, id):
         }
     return render(req, 'show.html', data)
     #return HttpResponse(f'<p>Read {books.title}</p>')
+
+
 
 def not_found_404(req, exception):
     #data = { 'err': exception }

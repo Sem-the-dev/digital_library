@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'user',
+    'user.apps.UserConfig',
     'digital_library.apps.DigitalLibraryConfig',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -10,4 +10,4 @@ class BorrowBookForm(forms.ModelForm):
   class Meta:
     model = Book
     fields = ["borrower"]
-    widgets = {"borrower":forms.HiddenInput()}
+    widgets = {"borrower": forms.HiddenInput()}

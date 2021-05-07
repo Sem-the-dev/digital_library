@@ -2,11 +2,10 @@
 
 {% block content %}
 
-     <h1>One book</h1>
+     <h2>{{ book.title }}</h2>
+        <h3>{{ book.author }}</h3>
+        <p>Borrowed by: {{book.borrower}}</p>
 
-     <p>
-        {{ book.title }}
-    </p>
 
     {% if not book.borrower %}
             <form method="POST">
@@ -17,8 +16,11 @@
     {% else %}
             {% if book.borrower == user %}
                     <div>Thank you for borrowing me!</div>
+                        <input type="submit" value="Return me" >
             {% else %}
-                    <div>I have been borrowed by {{book.borrower.username}}!</div>
+                    <div>I have been borrowed by {{book.borrower.username}}!
+                        <input type="submit" value="Already borrowed" disabled>
+                    </div>
             {% endif %}
     {% endif %}
 
