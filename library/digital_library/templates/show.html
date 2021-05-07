@@ -3,23 +3,23 @@
 {% block content %}
 
      <h1>One book</h1>
-        <p>
-            <a href="{% url 'digital-library-book' id=books.id %}">
-            {{ books.title }}</a>
-        </p>
 
-        {% if not book.borrower %}
-                <form method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Adopt me!">
-                </form>
-        {% else %}
-                {% if dog.owner == user %}
-                        <div>Thank you for adopting me!</div>
-                {% else %}
-                        <div>I have been adopted by {{dog.owner.username}}!</div>
-                {% endif %}
-        {% endif %}
+     <p>
+        {{ book.title }}
+    </p>
+
+    {% if not book.borrower %}
+            <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Borrow me!">
+            </form>
+    {% else %}
+            {% if book.borrower == user %}
+                    <div>Thank you for borrowing me!</div>
+            {% else %}
+                    <div>I have been borrowed by {{book.borrower.username}}!</div>
+            {% endif %}
+    {% endif %}
 
 {% endblock content %}
