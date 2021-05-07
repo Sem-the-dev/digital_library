@@ -35,12 +35,16 @@ def show_one(req, id):
     if req.method == 'POST':
         form = BorrowBookForm(req.POST)
         if form.is_valid():
-            book.borrower = req.user
+            if book.borrower == None: 
+                book.borrower = req.user
+            else:
+                book.borrower = None
             book.save()
             return redirect("digital-library-book", id = id)
+
     else:
         form = BorrowBookForm(initial={'borrower': req.user})
-    data = {
+        data = {
             "book": book,
             "form": form
         }

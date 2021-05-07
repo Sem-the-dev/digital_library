@@ -5,23 +5,22 @@
      <h2>{{ book.title }}</h2>
         <h3>{{ book.author }}</h3>
         <p>Borrowed by: {{book.borrower}}</p>
+    {% if book.borrower and book.borrower != user %}
+        <div>I have been borrowed by {{book.borrower.username}}!
+                <input type="submit" value="Already borrowed" disabled>
+        </div>
 
-
-    {% if not book.borrower %}
-            <form method="POST">
+     {% else %}
+        <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" value="Borrow me!">
-            </form>
-    {% else %}
-            {% if book.borrower == user %}
-                    <div>Thank you for borrowing me!</div>
-                        <input type="submit" value="Return me" >
+            {% if book.borrower %}
+            <p>Thank you for borrowing me!</p>
+            <input type="submit" value="Return me">
             {% else %}
-                    <div>I have been borrowed by {{book.borrower.username}}!
-                        <input type="submit" value="Already borrowed" disabled>
-                    </div>
+            <input type="submit" value="Borrow me!">
             {% endif %}
+        </form>
     {% endif %}
 
 {% endblock content %}
