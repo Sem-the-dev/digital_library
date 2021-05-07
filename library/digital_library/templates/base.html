@@ -6,6 +6,19 @@
     <title>Digital_Library</title>
 </head>
 <body>
+<nav>
+    <div >
+        <a href="{% url 'digital-library-home' %}">Home</a>
+        <a href="{% url 'digital-library-about' %}">About</a>
+        <a href="{% url 'digital-library-book-list' %}">Books</a>
+
+    </div>
+</nav>
+    {% if messages %}
+        {% for message in messages %}
+            <section id="alert">{{ message }}</section>
+        {% endfor %}
+    {% endif %}
     <main>
         {% block content %}
         {% endblock content %}

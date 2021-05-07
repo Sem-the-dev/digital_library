@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'user',
     'digital_library.apps.DigitalLibraryConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -126,6 +127,3 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#These go in the urls.py (shelter)
-handler404 = 'digital_library.views.not_found_404' 
-handler500 = 'digital_library.views.server_error_500'

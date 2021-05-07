@@ -3,15 +3,17 @@
 
 {% block content %}
     <h1>Welcome to the book page!</h1>
-    <ul>
-      {% for book in doggos %}
+   
+        <ul>  
+    {% for books in book %} 
           <li>
-              <a href="{% url 'digital_library_book_list' book_id=book.id %}">
-                  {{ book.name }}
+              <a href="{% url 'digital-library-book-list' %}">
+                  {{ books.title }}
               </a>
           </li>
-      {% endfor %}
-  </ul>
+    {% endfor %}      
+        </ul>
+    
 
 {% endblock content %}
 
