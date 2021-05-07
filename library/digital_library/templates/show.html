@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+     <h1>One book</h1>
+    <p><a href="{% url 'digital-library-book' id=books.id %}">
+            {{ books.title }}
+        </a></p>
+
+{% endblock content %}
